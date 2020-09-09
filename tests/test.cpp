@@ -5,20 +5,37 @@
 TEST(Json, Example)
 {
     Json object = Json::parse(R"(
-        {
-            "lastname" : "Ivanov",
-            "firstname" : "Ivan",
-            "age" : 25,
-            "islegal" : false,
-            "marks" : [
-                4,5,5,5,2,3
-            ],
-            "address" : {
-                "city" : "Moscow",
-                "street" : "Vozdvijenka"
-            }
-        }
+    {
+  "items": [
+    {
+      "name": "Ivanov Petr",
+      "group": "1",
+      "avg": "4.25",
+      "debt": null
+    },
+    {
+      "name": "Sidorov Ivan",
+      "group": 31,
+      "avg": 4,
+      "debt": "C++"
+    },
+    {
+      "name": "Pertov Nikita",
+      "group": "IU8-31",
+      "avg": 3.33,
+      "debt": [
+        "C++",
+        "Linux",
+        "Network"
+      ]
+    }
+  ],
+  "_meta": {
+    "count": 3
+  }
+}
     )");
+   // ?????????????????????????????????????????????????????????????
     EXPECT_EQ(any_cast<std::string>(object["lastname"]), "Ivanov");
     EXPECT_EQ(any_cast<bool>(object["islegal"]), false);
     EXPECT_EQ(any_cast<double>(object["age"]), 25);
