@@ -1,8 +1,7 @@
 // Copyright 2020 Alexander <scorpy2013@gmail.com>
 
-#endif // INCLUDE_STUDENT_HPP_
-#ifndef UNTITLED2_JSON_H
-#define UNTITLED2_JSON_H
+#ifndef INCLUDE_JSON_HPP_
+#define INCLUDE_JSON_HPP_
 
 #pragma once
 #include <any>
