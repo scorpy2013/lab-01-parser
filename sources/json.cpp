@@ -1,6 +1,6 @@
 // Copyright 2020 Alexander <scorpy2013@gmail.com>
 
-#include <student.hpp>
+#include <json.hpp>
 using nlohmann::json;
 
 void from_json(const json& j, Student& s) {
