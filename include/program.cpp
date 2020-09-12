@@ -13,12 +13,12 @@ namespace ns {
 void to_json(json& j, const Student& s) {
         j = json{{"name", s.Name}, {"group", s.Group}, {"avg", s.Avg},{"debt", s.Debt}};
     }
-    void from_json(const json& j, Student& s) {
+void from_json(const json& j, Student& s) {
     j.at("name").get_to(s.Name);
     j.at("group").get_to(s.Group);
     j.at("avg").get_to(s.Avg);
     j.at("debt").get_to(s.Debt);
-}
+    }
 }
 using json = nlohmann::json;
 ns::Student s {"Sidorov Ivan", 31, 4, "C++"};
