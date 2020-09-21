@@ -2,30 +2,62 @@
 
 #include <gtest/gtest.h>
 
-TEST(Json, Example1)
-{
-   Json object("{\"name\" : \"Sidorov Ivan\",\"group\" : 31,\"avg\" : 4,\"debt\" : \"C++\"}");
-    EXPECT_EQ(any_cast<std::string>(object["name"]), "Sidorov Ivan");
-    EXPECT_EQ(any_cast<int>(object["group"]), 31);
-    EXPECT_EQ(any_cast<int>(object["avg"]), 4);
-    EXPECT_EQ(any_cast<std::string>(object["debt"]), "C++ ");
+#include "myjson.hpp"
+
+
+TEST(MyJson, Null) {
+  Student s{json::parse(R"({
+      "name": "Ivanov Petr",
+      "group": "1",
+      "avg": "4.25",
+      "debt": null
+    })")};
+  ASSERT_EQ(s.getName(), "Ivanov Petr");
+  ASSERT_EQ(std::any_cast<json>(s.getGroup()).get<std::string>(), "1");
+  ASSERT_DOUBLE_EQ(s.getAvg(), 4.25);
+  ASSERT_TRUE(std::any_cast<json>(s.getDebt()).is_null());
 }
-TEST(Json, Example2)
-{
-    Json object("{\"name\": \"Ivanov Petr\", \"group\": 1, \"avg\": 4.25, \"debt\": \"null\"}");
-    EXPECT_EQ(std::any_cast<std::string>(object["name"]), "Ivanov Petr");
-    EXPECT_EQ(any_cast<int>(object["group"]), 1);
-    EXPECT_EQ(any_cast<int>(object["avg"]), 4.25);
-    EXPECT_EQ(any_cast<std::string>(object["debt"]), "null");
-} 
-TEST(Json, Example3)
-{
-   Json object("{\"name\" : \"Pertov Nikita\",\"group\" : \"IU8-31\",\"avg\" : 3.33,\"debt\" :  [\"C++\", \"Linux\", \"Network\"]}");
-    EXPECT_EQ(any_cast<std::string>(object["name"]), "Pertov Nikita");
-    EXPECT_EQ(any_cast<std::string>(object["group"]), "IU8-31");
-    EXPECT_EQ(any_cast<int>(object["avg"]), 3.33
-    Json debts = std::any_cast<Json >(object["debt"]);
-    EXPECT_EQ(std::any_cast<std::string>(debts[0]), "C++");
-    EXPECT_EQ(std::any_cast<std::string>(debts[1]), "Linux");
-    EXPECT_EQ(std::any_cast<std::string>(debts[2]), "Network");
+TEST(MyJson, OneSubject) {
+  Student s{json::parse(R"({
+      "name": "Sidorov Ivan",
+      "group": 31,
+      "avg": 4,
+      "debt": "C++"
+    })")};
+  ASSERT_EQ(s.getName(), "Sidorov Ivan");
+  ASSERT_EQ(std::any_cast<json>(s.getGroup()).get<int>(), 31);
+  ASSERT_DOUBLE_EQ(s.getAvg(), 4.00);
+  ASSERT_TRUE(std::any_cast<json>(s.getDebt()).is_string());
+}
+TEST(MyJson, Array) {
+  Student s{json::parse(R"({
+      "name": "Pertov Nikita",
+      "group": "IU8-31",
+      "avg": 3.33,
+      "debt": [
+        "C++",
+        "Linux",
+        "Network"
+      ]
+    })")};
+  ASSERT_EQ(s.getName(), "Pertov Nikita");
+  ASSERT_EQ(std::any_cast<json>(s.getGroup()).get<std::string>(), "IU8-31");
+  ASSERT_DOUBLE_EQ(s.getAvg(), 3.33);
+  ASSERT_TRUE(std::any_cast<json>(s.getDebt()).is_array());
+}
+TEST(Test6, ThrowStudent) {
+  ASSERT_THROW(Student{json::parse(R"({})")}, std::invalid_argument);
+}
+TEST(MyJson, From_json) {
+  Student s;
+  s.from_json(json::parse(R"({
+      "name": "Sidorov Ivan",
+      "group": 31,
+      "avg": 4,
+      "debt": "C++"
+    })"));
+  ASSERT_EQ(s.getName(), "Sidorov Ivan");
+  ASSERT_EQ(std::any_cast<json>(s.getGroup()).get<int>(), 31);
+  ASSERT_DOUBLE_EQ(s.getAvg(), 4.00);
+  ASSERT_EQ(std::any_cast<json>(s.getDebt()).get<std::string>(), "C++");
 }
