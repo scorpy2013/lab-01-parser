@@ -188,4 +188,4 @@ void MyJson::parser(const std::string &jsonPath)
     std::cout << split << "\n";
   }
 }
-MyJson::~MyJson() {};
+MyJson::~MyJson() {}
