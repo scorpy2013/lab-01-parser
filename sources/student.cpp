@@ -64,34 +64,6 @@ void Student::setAvg(const json &avg)
   }
 }
 void Student::setDebt(const json &debt) {Debt = std::any{debt};}
-void Student::from_json(const json &object) {
-
-  // проверка объекта на наличие
-  if (object.empty())
-  {
-    throw std::invalid_argument("Object is empty!");
-  }
-  // возвращаем строку по индексу "имя"
-  Name = object.at("name").get<std::string>();
-  // возвращаем "группу"
-  Group = std::any{object.at("group")};
-  // строка/целое число/вещественное число ???
-  // проверяем на строчный тип
-  if (object.at("avg").is_string())
-  {
-    Avg = std::stod(object.at("avg").get<std::string>());
-  }
-    // проверяем на целочисленный или вещественный тип
-  else if (object.at("avg").is_number())
-  {
-    Avg = object.at("avg").get<double>();
-  }
-  else
-  {
-    throw std::invalid_argument("The type of the avg is not correct!");
-  }
-  Debt = std::any{object.at("debt")};
-}
 void from_json(const json& j, Student& s)
 {
   s.setName(j.at("name"));
