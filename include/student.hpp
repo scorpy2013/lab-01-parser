@@ -1,3 +1,8 @@
+//
+// Created by alexscorpy on 18.09.2020.
+//
+
+
 #ifndef INCLUDE_STUDENT_HPP_
 #define INCLUDE_STUDENT_HPP_
 
@@ -18,10 +23,10 @@ class Student
   Student(); // конструктор по умолчанию
   explicit Student(const json &object); // конструктор для инициализации полей
   // "геттеры" для реализации инкапсуляции
-  [[nodiscard]] const std::string &getName() const;
-  [[nodiscard]] const std::any &getGroup() const;
-  [[nodiscard]] double getAvg() const;
-  [[nodiscard]] const std::any &getDebt() const;
+  [[nodiscard]]const std::string &getName() const;
+  [[nodiscard]]const std::any &getGroup() const;
+  [[nodiscard]]double getAvg() const;
+  [[nodiscard]]const std::any &getDebt() const;
   // "сеттеры" для реализации икапсуляции
   void setName(const json &name);
   void setGroup(const json &group);
@@ -29,7 +34,6 @@ class Student
   void setDebt(const json &debt);
   // собственная реализация функции,
   // переводящей текст из json файла в нормальный вид
-  void from_json(const json &object);
 };
 // реализация функции, предложенной в задании
 void from_json(const json& j, Student& s);
