@@ -5,9 +5,9 @@
 #include <algorithm>
 // MyJson::MyJson() {};
 MyJson::MyJson() = default;
+const lengths_of_fields &MyJson::get_length() const {return length;}
 std::string MyJson::get_one_split() const
-{
-  // получаем строчку типа |---------|---------|---------|---------|
+{  // получаем строчку типа |---------|---------|---------|---------|
   std::string  split = "|";
   // с помощью циклов добавляем к строчке символы "|" и "-"
   for (size_t i = 0; i < length.length_for_name; ++i)
@@ -139,10 +139,27 @@ MyJson::MyJson(const std::string &jsonPath)
   }
   set_lengths_of_fields();
 }
-
 //------------------------------------------------------------------------------
-void MyJson::parser(const std::string &jsonPath)
-{ // строим ВСЮ ТАБЛИЦУ вместе со значениями
+void MyJson::set_json(const std::string &JsonPath) {
+  json data = json::parse(JsonPath);
+  // проверяем поле items на массив
+  if (!data.at("items").is_array())
+  {
+    throw std::invalid_argument("Items is not array!!!");
+  }
+  // сравниваем кол-во студентов и _meta
+  if (data.at("items").size() != data.at("_meta").at("count").get<size_t>())
+  {
+    throw std::invalid_argument("data.at(items).size()!=data.at(_meta).at(count).get<size_t>()");
+  }
+  // по ключу "items" просматриваем всех студентов и добавляем их в массив
+  for (auto const &student : data.at("items"))
+  {
+    students.emplace_back(student);
+  }
+  set_lengths_of_fields();
+}
+void MyJson::parser(const std::string &jsonPath) {
   if (jsonPath.empty())
   {
     throw std::invalid_argument("The file is empty!");
@@ -150,15 +167,15 @@ void MyJson::parser(const std::string &jsonPath)
   std::ifstream json_file(jsonPath);
   if (!json_file.is_open())
   {
-    throw std::out_of_range("unable to open json: " + jsonPath);
+    throw std::out_of_range("unable to open json:" + jsonPath +
+                            " !");
   }
   json data;
   json_file >> data;
   if (!data.at("items").is_array())
   {
-    throw std::invalid_argument("Items are not array!");
+    throw std::invalid_argument("Items is not array!");
   }
-  // сравниваем кол-во студентов и "_meta"
   if (data.at("items").size() != data.at("_meta").at("count").get<size_t>())
   {
     throw std::invalid_argument("Items length don't equal _meta.count!!!");
@@ -166,26 +183,22 @@ void MyJson::parser(const std::string &jsonPath)
   for (auto const &student : data.at("items"))
   {
     students.emplace_back(student);
-    // students.push_back(student);
-    // emplace_back создает объект непосредственно в конце вектора,
-    // т.е. без лишнего копирования (или перемещения)
   }
   set_lengths_of_fields();
-  // рисуем | name          | group  | avg  | debt          |
-  std::cout << std::left << "|" << std::setw(length.length_for_name) << "name"
+  std::cout << std::left
+            << "|" << std::setw(length.length_for_name) << "name"
             << "|" << std::setw(length.length_for_group) << "group"
             << "|" << std::setw(length.length_for_avg) << "avg"
             << "|" << std::setw(length.length_for_debt) << "debt"
             << "|" << '\n';
-  // рисуем |---------------|--------|------|---------------|
   std::string split = get_one_split();
   std::cout << split << "\n";
   for (const auto &student : students)
-  { // рисуем | Ivanov Petr   | 1      | 4.25 | null          |
+  {
     print_one_line(student);
     std::cout << '\n';
-    // рисуем |---------------|--------|------|---------------|
     std::cout << split << "\n";
   }
 }
 MyJson::~MyJson() {}
+
