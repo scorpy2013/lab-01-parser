@@ -169,7 +169,7 @@ TEST(MyJson, parser) {
 })");
   data.set_json(str);
   out << data;
-  std::string true(R"(|name           |group     |avg   |debt           |
+  std::string true_answer(R"(|name           |group     |avg   |debt           |
 |---------------|----------|------|---------------|
 |Ivanov Petr    |1         |4.25  |null           |
 |---------------|----------|------|---------------|
@@ -178,6 +178,6 @@ TEST(MyJson, parser) {
 |Pertov Nikita  |IU8-31    |3.33  |3 items        |
 |---------------|----------|------|---------------|
 )");
-  ASSERT_EQ(out.str(), true);
+  ASSERT_EQ(out.str(), true_answer);
 }
 
