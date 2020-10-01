@@ -200,5 +200,21 @@ void MyJson::parser(const std::string &jsonPath) {
     std::cout << split << "\n";
   }
 }
+std::ostream &operator<<(std::ostream &out, MyJson &JSON) {
+  out << std::left
+      << "|" << std::setw(JSON.length.length_for_name) << "name"
+      << "|" << std::setw(JSON.length.length_for_group) << "group"
+      << "|" << std::setw(JSON.length.length_for_avg) << "avg"
+      << "|" << std::setw(JSON.length.length_for_debt) << "debt"
+      << "|" << '\n';
+  std::string separator = JSON.get_one_split();
+  out << separator << "\n";
+  for (const auto &student : JSON.students) {
+    JSON.print_one_line(student);
+    out << '\n';
+    out << separator << "\n";
+  }
+  return out;
+}
 MyJson::~MyJson() {}
 
