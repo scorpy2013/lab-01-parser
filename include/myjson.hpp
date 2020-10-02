@@ -48,7 +48,7 @@ class MyJson
   [[nodiscard]] std::string get_one_split() const; // создаем универсальный разделитель в таблице
   void parser(const std::string &jsonPath); // функция "парсинга"
   void set_json(const std::string &JSON); // "сеттер" для строки json файла
-  friend std::ostream& operator <<(std::ostream& out, MyJson& JSON);
+  friend std::ostream& operator <<(std::ostream& out, const  MyJson& JSON);
 };
 #endif  // TEMPLATE_MYJSON_HPP
 
