@@ -200,7 +200,7 @@ void MyJson::parser(const std::string &jsonPath) {
     std::cout << split << "\n";
   }
 }
-std::ostream &operator<<(std::ostream &out, MyJson &JSON) {
+std::ostream &operator<<(std::ostream &out, const MyJson &JSON) {
   out << std::left
       << "|" << std::setw(JSON.length.length_for_name) << "name"
       << "|" << std::setw(JSON.length.length_for_group) << "group"
