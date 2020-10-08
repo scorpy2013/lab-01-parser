@@ -1,6 +1,4 @@
-//
-// Created by alexscorpy on 18.09.2020.
-//
+// Copyright [year] <Copyright Owner>
 #include <algorithm>
 #include <myjson.hpp>
 // MyJson::MyJson() {};

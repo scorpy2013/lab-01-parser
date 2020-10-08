@@ -9,8 +9,8 @@
 | Pertov Nikita | IU8-31 | 3.33 | 3 items       |
 |---------------|--------|------|---------------|
  */
-#ifndef TEMPLATE_MYJSON_HPP
-#define TEMPLATE_MYJSON_HPP
+#ifndef INCLUDE_MYJSON_HPP_
+#define INCLUDE_MYJSON_HPP_
 
 #include <fstream>
 #include <iomanip>
@@ -49,4 +49,4 @@ class MyJson {
   // перегруженный оператор вывода
   friend std::ostream &operator<<(std::ostream &out, const MyJson &JSON);
 };
-#endif  // TEMPLATE_MYJSON_HPP
+#endif // INCLUDE_MYJSON_HPP_
