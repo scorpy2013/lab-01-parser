@@ -1,3 +1,4 @@
+
 # This file is part of CMake-codecov.
 #
 # Copyright (c)
@@ -30,36 +31,36 @@ foreach (LANG ${ENABLED_LANGUAGES})
 			# version appended as gcov-x. To find this binary we'll build the
 			# suggested binary name with the compiler version.
 			string(REGEX MATCH "^[0-9]+" GCC_VERSION
-				"${CMAKE_${LANG}_COMPILER_VERSION}")
+					"${CMAKE_${LANG}_COMPILER_VERSION}")
 
 			find_program(GCOV_BIN NAMES gcov-${GCC_VERSION} gcov
-				HINTS ${COMPILER_PATH})
+					HINTS ${COMPILER_PATH})
 
 		elseif ("${CMAKE_${LANG}_COMPILER_ID}" STREQUAL "Clang")
 			# Some distributions like Debian ship llvm-cov with the compiler
 			# version appended as llvm-cov-x.y. To find this binary we'll build
 			# the suggested binary name with the compiler version.
 			string(REGEX MATCH "^[0-9]+.[0-9]+" LLVM_VERSION
-				"${CMAKE_${LANG}_COMPILER_VERSION}")
+					"${CMAKE_${LANG}_COMPILER_VERSION}")
 
 			# llvm-cov prior version 3.5 seems to be not working with coverage
 			# evaluation tools, but these versions are compatible with the gcc
 			# gcov tool.
 			if(LLVM_VERSION VERSION_GREATER 3.4)
 				find_program(LLVM_COV_BIN NAMES "llvm-cov-${LLVM_VERSION}"
-					"llvm-cov" HINTS ${COMPILER_PATH})
+						"llvm-cov" HINTS ${COMPILER_PATH})
 				mark_as_advanced(LLVM_COV_BIN)
 
 				if (LLVM_COV_BIN)
 					find_program(LLVM_COV_WRAPPER "llvm-cov-wrapper" PATHS
-						${CMAKE_MODULE_PATH})
+							${CMAKE_MODULE_PATH})
 					if (LLVM_COV_WRAPPER)
 						set(GCOV_BIN "${LLVM_COV_WRAPPER}" CACHE FILEPATH "")
 
 						# set additional parameters
 						set(GCOV_${CMAKE_${LANG}_COMPILER_ID}_ENV
-							"LLVM_COV_BIN=${LLVM_COV_BIN}" CACHE STRING
-							"Environment variables for llvm-cov-wrapper.")
+								"LLVM_COV_BIN=${LLVM_COV_BIN}" CACHE STRING
+								"Environment variables for llvm-cov-wrapper.")
 						mark_as_advanced(GCOV_${CMAKE_${LANG}_COMPILER_ID}_ENV)
 					endif ()
 				endif ()
@@ -76,11 +77,11 @@ foreach (LANG ${ENABLED_LANGUAGES})
 
 		if (GCOV_BIN)
 			set(GCOV_${CMAKE_${LANG}_COMPILER_ID}_BIN "${GCOV_BIN}" CACHE STRING
-				"${LANG} gcov binary.")
+					"${LANG} gcov binary.")
 
 			if (NOT CMAKE_REQUIRED_QUIET)
 				message("-- Found gcov evaluation for "
-				"${CMAKE_${LANG}_COMPILER_ID}: ${GCOV_BIN}")
+						"${CMAKE_${LANG}_COMPILER_ID}: ${GCOV_BIN}")
 			endif()
 
 			unset(GCOV_BIN CACHE)
@@ -140,10 +141,10 @@ function (add_gcov_target TNAME)
 
 		# call gcov
 		add_custom_command(OUTPUT ${TDIR}/${FILE}.gcov
-			COMMAND ${GCOV_ENV} ${GCOV_BIN} ${TDIR}/${FILE}.gcno > /dev/null
-			DEPENDS ${TNAME} ${TDIR}/${FILE}.gcno
-			WORKING_DIRECTORY ${FILE_PATH}
-		)
+				COMMAND ${GCOV_ENV} ${GCOV_BIN} ${TDIR}/${FILE}.gcno > /dev/null
+				DEPENDS ${TNAME} ${TDIR}/${FILE}.gcno
+				WORKING_DIRECTORY ${FILE_PATH}
+				)
 
 		list(APPEND BUFFER ${TDIR}/${FILE}.gcov)
 	endforeach()
