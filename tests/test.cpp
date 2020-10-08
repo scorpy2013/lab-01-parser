@@ -151,7 +151,7 @@ TEST(MyJson, parser) {
     },
     {
       "name": "Sidorov Ivan",
-      "group": 31,
+      "group": 123456789,
       "avg": 4,
       "debt": "C++"
     },

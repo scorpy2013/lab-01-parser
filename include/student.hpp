@@ -1,4 +1,4 @@
-// Copyright [year] <Copyright Owner>
+//Copyright [2020] <Copyright scorpy2013>
 
 #ifndef INCLUDE_STUDENT_HPP_
 #define INCLUDE_STUDENT_HPP_

@@ -44,6 +44,7 @@ add_executable(tests
         ${CMAKE_CURRENT_SOURCE_DIR}/sources/student.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/sources/myjson.cpp
         # ${CMAKE_CURRENT_SOURCE_DIR}/sources/main.cpp
+        # sources/main.cpp
         )
 
 # TODO: change template word to project name and delete this comment

@@ -1,4 +1,4 @@
-// Copyright [year] <Copyright Owner>
+//Copyright [2020] <Copyright scorpy2013>
 #include <algorithm>
 #include <myjson.hpp>
 // MyJson::MyJson() {};

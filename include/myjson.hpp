@@ -1,4 +1,4 @@
-//Copyright [year] <Copyright Owner>
+//Copyright [2020] <Copyright scorpy2013>
 /*
 | name          | group  | avg  | debt          |
 |---------------|--------|------|---------------|
