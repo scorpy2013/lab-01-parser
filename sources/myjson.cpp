@@ -74,8 +74,8 @@ void MyJson::print_one_line(const Student &student) const {
   if (std::any_cast<json>(student.getGroup()).is_number()) {
     std::cout << std::setw(length.length_for_group)
               << std::any_cast<json>(student.getGroup()).get<int>();
-  }  // проверяем на строковое значение
-  else if (std::any_cast<json>(student.getGroup()).is_string()) {
+  } else if (std::any_cast<json>(student.getGroup()).is_string()) {
+    // проверяем на строковое значение
     std::cout << std::setw(length.length_for_group)
               << std::any_cast<json>(student.getGroup()).get<std::string>();
   } else {
@@ -87,16 +87,16 @@ void MyJson::print_one_line(const Student &student) const {
   // если долгов нет, то пишем "null"
   if (std::any_cast<json>(student.getDebt()).is_null()) {
     std::cout << std::setw(length.length_for_debt) << "null";
-  }  // если долги являются массивом предметов, то
-     // с помощью итератора выводим размер нашего вектора
-  else if (std::any_cast<json>(student.getDebt()).is_array()) {
+  } else if (std::any_cast<json>(student.getDebt()).is_array()) {
+    // если долги являются массивом предметов, то
+    // с помощью итератора выводим размер нашего вектора
     std::string it = std::to_string(std::any_cast<json>(student.getDebt())
                                         .get<std::vector<std::string>>()
                                         .size()) +
                      " items";
     std::cout << std::setw(length.length_for_debt) << it;
-  }  // проверяем на строковое значение
-  else if (std::any_cast<json>(student.getDebt()).is_string()) {
+  } else if (std::any_cast<json>(student.getDebt()).is_string()) {
+    // проверяем на строковое значение
     std::cout << std::setw(length.length_for_debt)
               << std::any_cast<json>(student.getDebt()).get<std::string>();
   } else {

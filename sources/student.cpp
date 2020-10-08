@@ -18,9 +18,8 @@ Student::Student(const json &object) {
   // проверяем на строчный тип
   if (object.at("avg").is_string()) {
     Avg = std::stod(object.at("avg").get<std::string>());
-  }
-  // проверяем на целочисленный или вещественный тип
-  else if (object.at("avg").is_number()) {
+  } else if (object.at("avg").is_number()) {
+    // проверяем на целочисленный или вещественный тип
     Avg = object.at("avg").get<double>();
   } else {
     throw std::invalid_argument("The type of the avg is not correct!");
@@ -43,9 +42,8 @@ void Student::setAvg(const json &avg) {
   // проверяем на строчный тип
   if (avg.at("avg").is_string()) {
     Avg = std::stod(avg.at("avg").get<std::string>());
-  }
-  // проверяем на целочисленный или вещественный тип
-  else if (avg.at("avg").is_number()) {
+  } else if (avg.at("avg").is_number()) {
+    // проверяем на целочисленный или вещественный тип
     Avg = avg.at("avg").get<double>();
   } else {
     throw std::invalid_argument("The type of the avg is not correct!");

@@ -1,12 +1,13 @@
 // Copyright 2020 Alexander <scorpy2013@gmail.com>
-#include "myjson.hpp"
-#include <sstream>
 #include <gtest/gtest.h>
+
 #include <fstream>
+#include <sstream>
 #include <string>
 
-TEST(MyJson, LengthOfFields)
-{
+#include "myjson.hpp"
+
+TEST(MyJson, LengthOfFields) {
   ASSERT_EQ(MyJson().get_length().length_for_name, 15);
   ASSERT_EQ(MyJson().get_length().length_for_group, 8);
   ASSERT_EQ(MyJson().get_length().length_for_avg, 6);
@@ -87,10 +88,10 @@ TEST(MyJson, Array) {
   ASSERT_TRUE(std::any_cast<json>(s.getDebt()).is_array());
 }
 
-TEST(MyJson, ExceptionTests)
-{
+TEST(MyJson, ExceptionTests) {
   EXPECT_THROW(MyJson(""), std::invalid_argument);
-  EXPECT_THROW(MyJson("Json file which cased an exception!"), std::out_of_range);
+  EXPECT_THROW(MyJson("Json file which cased an exception!"),
+               std::out_of_range);
   EXPECT_THROW(MyJson().set_json(R"({
   "items":
     {
@@ -100,7 +101,8 @@ TEST(MyJson, ExceptionTests)
       "debt": null
     }
 }
-)"),std::invalid_argument);
+)"),
+               std::invalid_argument);
   EXPECT_THROW(MyJson().set_json(R"({
   "items": [
     {
@@ -129,7 +131,8 @@ TEST(MyJson, ExceptionTests)
   "_meta": {
     "count": 99
   }
-})"),std::invalid_argument);
+})"),
+               std::invalid_argument);
 }
 TEST(MyJson, OneSplit) {
   std::string s = "|---------------|--------|------|---------------|";
