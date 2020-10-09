@@ -139,9 +139,8 @@ TEST(MyJson, OneSplit) {
   ASSERT_EQ(MyJson().get_one_split(), s);
 }
 TEST(MyJson, parser) {
-  std::stringstream out;
-  MyJson data;
-  std::string str(R"({
+  MyJson data1, data2;
+  std::string str1(R"({
   "items": [
     {
       "name": "Ivanov Petr",
@@ -170,17 +169,6 @@ TEST(MyJson, parser) {
     "count": 3
   }
 })");
-  data.set_json(str);
-  std:: cout << data;
-  std::string correct(R"(|name           |group     |avg   |debt           |
-|---------------|----------|------|---------------|
-|Ivanov Petr    |1         |4.25  |null           |
-|---------------|----------|------|---------------|
-|Sidorov Ivan   |123456789 |4     |C++            |
-|---------------|----------|------|---------------|
-|Pertov Nikita  |IU8-31    |3.33  |3 items        |
-|---------------|----------|------|---------------|
-)");
-  // std::cout <<out.str();
-  //ASSERT_EQ(out.str(), correct);
+  data1.set_json(str1);
+  std:: cout << data1;
 }
