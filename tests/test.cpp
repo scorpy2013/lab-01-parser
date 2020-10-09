@@ -104,6 +104,17 @@ TEST(MyJson, ExceptionTests) {
 )"),
                std::invalid_argument);
   EXPECT_THROW(MyJson().set_json(R"({
+  "items":
+    {
+      "name": "Ivanov Petr",
+      "group": [],
+      "avg": "4.25",
+      "debt": null
+    }
+}
+)"),
+               std::invalid_argument);
+  EXPECT_THROW(MyJson().set_json(R"({
   "items": [
     {
       "name": "Ivanov Petr",
